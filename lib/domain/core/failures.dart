@@ -16,6 +16,9 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
   }) = ShortPassword<T>;
 }
 
+
+///チュートリアル用？
+/* 
 ///無効なアドレスが入力された場合エラー文を表示する
 void showingTheEmailAddressOrFailure() {
   final emailAddress = EmailAddress('まちがってるヨアドレス');
@@ -27,4 +30,4 @@ void showingTheEmailAddressOrFailure() {
   ///上記で拾いきれないエラー
   String emailText2 =
       emailAddress.value.getOrElse(() => 'Some failure happened');
-}
+}*/
