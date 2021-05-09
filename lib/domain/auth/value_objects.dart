@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_todo_app/domain/core/failures.dart';
 import 'package:firebase_todo_app/domain/core/value_objects.dart';
+import 'package:firebase_todo_app/domain/core/value_validators.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
-
-part 'value_objects.freezed.dart';
 
 class EmailAddress extends ValueObject<String> {
   ///Either<エラー扱いとなるLeftの値<Leftの型：String>,正しいRightの型：String>
@@ -24,29 +24,19 @@ class EmailAddress extends ValueObject<String> {
   int get hashCode => value.hashCode;
 }
 
-///Freezedの使用 無効な値に対してエラーをスローするための抽象クラス
-@freezed
-abstract class ValueFailure<T> with _$ValueFailure<T> {
-  ///アドレス用
-  const factory ValueFailure.invalidEmail({
-    @required String failedValue,
-  }) = InvalidEmail<T>;
+///パスワードも同様に検証
+class Password extends ValueObject<String> {
+  final Either<ValueFailure<String>, String> value;
 
-  ///パスワード用
-  const factory ValueFailure.shortPassword({
-    @required String failedValue,
-  }) = ShortPassword<T>;
-}
+  factory Password(String input) {
+    assert(input != null);
+    return Password._(
+      validatePassword(input),
+    );
+  }
 
-///無効なアドレスが入力された場合エラー文を表示する
-void showingTheEmailAddressOrFailure() {
-  final emailAddress = EmailAddress('まちがってるヨアドレス');
+  const Password._(this.value);
 
-  ///無効なアドレスなのでLeft側に入れたい→foldメソッドを使用
-  String emailText = emailAddress.value.fold(
-      (left) => 'Failure happened, more precisely: $left', (right) => right);
-
-  ///上記で拾いきれないエラー
-  String emailText2 =
-      emailAddress.value.getOrElse(() => 'Some failure happened');
+  @override
+  int get hashCode => value.hashCode;
 }

@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:firebase_todo_app/domain/auth/email_address.dart';
+import 'package:firebase_todo_app/domain/auth/value_objects.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+
+import 'failures.dart';
 
 ///ValueObjectクラスのフィールドは不変！再代入だめ！
 @immutable
