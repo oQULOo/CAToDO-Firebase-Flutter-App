@@ -20,3 +20,10 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+Future<void> signIn({
+  @required String email,
+  @required String password,
+}) async {
+  signIn(email: 'pass012345', password: 'yamada@gmail.com');
+}
